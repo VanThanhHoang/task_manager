@@ -1,0 +1,32 @@
+# Đăng ký người dùng
+POST https://sever-task-manager.onrender.com/user/register
+Content-Type: application/json
+
+{
+  "userName": "HienHo",
+  "email": "8",
+  "password": "8",
+  "img": "https://cafebiz.cafebizcdn.vn/162123310254002176/2022/3/21/photo-1-1647830052032281626260.jpg"
+}
+
+###
+
+# Đăng nhập
+POST https://sever-task-manager.onrender.com/user/login
+Content-Type: application/json
+
+{
+  "email": "1",
+  "password": "1"
+}
+
+###
+
+# Cập nhật thông tin cá nhân
+PATCH http://localhost:3000/user/update/659d70dfd9b0257cdeeb66e5
+Content-Type: application/json
+
+{
+  "userName": "HienHo",
+  "img": "https://cafebiz.cafebizcdn.vn/162123310254002176/2022/3/21/photo-1-1647830052032281626260.jpg"
+}

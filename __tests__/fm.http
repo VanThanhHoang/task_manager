@@ -1,0 +1,79 @@
+## Tạo gia đình mới
+POST http://localhost:3000/family/create
+Content-Type: application/json
+
+{
+  "name": "Gia đình A",
+  "image": "",
+  "createBy": {
+    "id": "659d70dfd9b0257cdeeb66e5",
+    "userName": "HienHo",
+    "email": "1",
+    "image": "https://cafebiz.cafebizcdn.vn/162123310254002176/2022/3/21/photo-1-1647830052032281626260.jpg"
+  },
+  "newMembers": [{
+    "id": "659d77d32da0e7be026ce7df",
+    "userName": "HienHo2",
+    "email": "12",
+    "image": "https://cafebiz.cafebizcdn.vn/162123310254002176/2022/3/21/photo-1-1647830052032281626260.jpg"
+  }]
+}
+
+
+###
+
+# Lấy thông tin gia đình
+GET http://localhost:3000/family/659d783a77408cb12f888ae8
+###
+
+# Xoá gia đình
+DELETE http://localhost:3000/family/delete/659e20a45da16547233431dc
+
+
+###
+# Cập nhật ảnh gia đình
+PATCH http://localhost:3000/family/updateImage/659d783a77408cb12f888ae8
+Content-Type: application/json
+
+{
+     "image": "https://cafebiz.cafebizcdn.vn/162123310254002176/2022/3/21/photo-1-1647830052032281626260.jpg"
+}
+
+###
+# Add member to family
+POST http://localhost:3000/family/your-family-id/addMember
+Content-Type: application/json
+
+{
+  "member": {
+    "userName": "New Member",
+    "email": "newmember@example.com",
+    "password": "newmemberpassword",
+    "img": "newmember.jpg"
+  }
+}
+
+###
+
+# Remove member from family
+DELETE http://localhost:3000/family/your-family-id/removeMember/your-member-id
+
+###
+PATCH http://localhost:3000/task/taskId/update
+Content-Type: application/json
+
+{
+  "title": "Task sửa",
+  "detail": "Mô tả task sau sửa",
+  "timeStart": "2024-01-01T09:00:00.000Z",
+  "timeEnd": "2024-01-01T11:00:00.000Z",
+  "members": ["memberId3", "memberId4"],
+  "status": "Completed",
+  "createBy": "creatorId2"
+}
+###
+# Lấy danh sách gia đình theo userId
+GET http://localhost:3000/family/getUserFamilies/659d783a77408cb12f888ae9
+###
+# Lấy danh sách tất cả gia đình
+GET https://sever-task-manager.onrender.com/family/get/getAll

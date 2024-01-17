@@ -1,0 +1,108 @@
+import {Table, Row} from 'react-native-table-component';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {AppHeader} from "../../components/header/AppHeader";
+import {useAppDispatch, showLoading, offLoading} from "../../redux";
+import AxiosInstance from "../../utils/AxiosInstance";
+import { formatDDMMYY} from "../../utils/stringFormatter";
+import {AppScreenContainer} from "../../layout";
+import {Appbar} from "react-native-paper";
+import {useTheme} from "../../hooks";
+
+const ResidentInfoScreen = () => {
+    const [residents, setResidents] = useState<any[]>([]);
+    const tableHead = ['STT', 'Họ và tên', 'Số CMND', 'Số ĐT', 'Địa chỉ', 'Giới tính', 'Email', 'Link ảnh', 'Ngày vào'];
+    const widthArr = [50, 150, 100, 100, 100, 100, 100, 100, 100]; // Adjust the width for the new column
+    const tableData = residents.map((resident, index) => [
+        index + 1,
+        resident.fullName, // Add fullName to each row
+        resident.personal_identification_number,
+        resident.phone_number,
+        resident.permanent_address,
+        resident.gender,
+        resident.email,
+        resident.portrait_url,
+        formatDDMMYY(new Date(resident.check_in_date))
+    ]);
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(showLoading())
+        AxiosInstance().get('/user/get/all')
+            .then(res => {
+                console.log(res.data.residents)
+                setResidents(res.data.residents)
+            })
+            .finally(() => {
+                dispatch(offLoading())
+            });
+    }, []);
+    const {colors} = useTheme()
+    return (
+        <AppScreenContainer>
+            <AppHeader
+                showBackButton
+                title={"Danh sách cư dân"}
+                action={<Appbar.Action
+                    color={colors.text}
+                    onPress={() => {
+                        dispatch(showLoading())
+                        // exportToExcel().finally(() => {
+                        //     dispatch(offLoading())
+                        // })
+                    }}
+                    icon={"content-save"}/>}/>
+            <View  style={{
+                marginTop: 16,
+                padding: 16,
+                flex:1,
+            }}>
+                <ScrollView
+                    style={{  flex:1}}
+                    showsVerticalScrollIndicator={false}
+                   horizontal>
+                    <View>
+                        <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+                            <Row
+                                data={tableHead}
+                                widthArr={widthArr}
+                                style={styles.header}
+                                textStyle={styles.text}/>
+                        </Table>
+                        <ScrollView      style={{  flex:1}} >
+                            {
+                                tableData.length == 0 && <Text style={{
+                                    color: colors.text,
+                                    fontWeight: 'bold',
+                                    fontSize: 16,
+                                }}>Không có dữ liệu</Text>
+                            }
+                            <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+                                {
+                                    tableData.map((rowData, index) => (
+                                        <Row
+                                            key={index}
+                                            data={rowData}
+                                            widthArr={widthArr} // Use the same widthArr as the header
+                                            style={[styles.row, index % 2 == 0 && {backgroundColor: '#F7F6E7'}]}
+                                            textStyle={styles.text}
+                                        />
+                                    ))
+                                }
+                            </Table>
+                        </ScrollView>
+                    </View>
+                </ScrollView>
+            </View>
+        </AppScreenContainer>
+    );
+};
+
+const styles = StyleSheet.create({
+    header: {height: 50, backgroundColor: '#537791'},
+    text: {textAlign: 'center', fontWeight: '500', color: 'black'},
+    dataWrapper: {marginTop: -1},
+    row: {height: 40, backgroundColor: '#E7E6E1', width: '100%'},
+    footer: {minHeight: 70, backgroundColor: '#90EE90'}
+});
+
+export default ResidentInfoScreen;

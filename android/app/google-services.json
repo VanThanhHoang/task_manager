@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625383444132",
+    "project_id": "task-manager-ba552",
+    "storage_bucket": "task-manager-ba552.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625383444132:android:ea6fbda3d7cb00ed17e031",
+        "android_client_info": {
+          "package_name": "com.qlck"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANgFMHTkd4YWf9VqjDbHG1YYrG9GbLSLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

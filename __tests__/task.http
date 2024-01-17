@@ -1,0 +1,58 @@
+### Tạo task mới
+POST http://localhost:3000/task/create
+Content-Type: application/json
+
+{
+  "title": "Task mới",
+  "detail": "Chi tiết task",
+  "timeStart": "2024-01-10T08:00:00.000Z",
+  "timeEnd": "2024-01-10T12:00:00.000Z",
+  "members": [
+   {
+            "userName": "HienHo2",
+            "email": "12",
+            "_id": "659d783a77408cb12f888aea"
+          }
+  ],
+  "status": "Pending",
+  "createBy": {
+            "userName": "HienHo2",
+            "email": "12",
+            "_id": "659d783a77408cb12f888aea"
+          },
+  "familyId": "659d783a77408cb12f888ae8"
+}
+
+### lay danh sach task
+GET http://localhost:3000/task/familyTasks/659d783a77408cb12f888ae8
+
+### xoa task
+DELETE http://localhost:3000/task/659e423b33b46aeefa3d66ca/delete
+
+### sua task
+PATCH http://localhost:3000/task/659e42cc33b46aeefa3d66eb/update
+Content-Type: application/json
+
+{
+  "title": "Task cập nhật",
+  "detail": "Chi tiết task cập nhật2",
+  "timeStart": "2024-01-11T08:00:00.000Z",
+  "timeEnd": "2024-01-11T12:00:00.000Z",
+  "members": [
+   {
+            "userName": "HienHo3",
+            "email": "13",
+            "_id": "659d783a77408cb12f888aeb"
+   }
+  ],
+  "status": "In Progress",
+  "createBy": {
+            "userName": "HienHo3",
+            "email": "13",
+            "_id": "659d783a77408cb12f888aeb"
+  },
+  "familyId": "659d783a77408cb12f888ae8"
+}
+
+### lay danh sach task
+GET https://sever-task-manager.onrender.com/user/allUsers
